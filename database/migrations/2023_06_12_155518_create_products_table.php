@@ -18,9 +18,9 @@ return new class extends Migration {
             $table->foreignId('sub_category_id')->references('id')->on('sub_categories')
                 ->nullOnDelete();
             $table->integer('purchases_count');
-            $table->smallInteger('old_price');
-            $table->smallInteger('new_price')->nullable();
-            $table->smallInteger('weight');
+            $table->unsignedInteger('old_price');
+            $table->unsignedInteger('new_price')->nullable();
+            $table->unsignedInteger('weight');
             $table->string('thumbnail', 255);
             $table->string('slug', 128);
             $table->boolean('is_visible');

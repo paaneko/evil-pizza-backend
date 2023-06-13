@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('product_id')->references('id')->on('products')
                 ->nullOnDelete();
             $table->string('name', 128);
-            $table->smallInteger('extra_price');
-            $table->smallInteger('extra_weight');
+            $table->unsignedInteger('extra_price');
+            $table->unsignedInteger('extra_weight');
             $table->timestamps();
         });
     }
