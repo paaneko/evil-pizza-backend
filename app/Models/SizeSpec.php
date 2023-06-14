@@ -14,5 +14,7 @@ class SizeSpec extends Model
         'product_id',
         'extra_price',
         'extra_weight',
+        'extra_toppings_price',
+        'extra_toppings_weight_rate'
     ];
 }

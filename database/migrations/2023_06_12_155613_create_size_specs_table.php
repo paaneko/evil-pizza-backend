@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->string('name', 128);
             $table->unsignedInteger('extra_price');
             $table->unsignedInteger('extra_weight');
+            $table->unsignedInteger('extra_toppings_price');
+            $table->unsignedInteger('extra_toppings_weight_rate');
             $table->timestamps();
         });
     }

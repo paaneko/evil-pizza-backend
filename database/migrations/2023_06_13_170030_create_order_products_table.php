@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('dough_spec_id')->nullable()->references('id')->on('dough_specs');
             $table->foreignId('size_spec_id')->references('id')->on('dough_specs');
             $table->unsignedSmallInteger('quantity');
+            $table->unsignedSmallInteger('total_price');
             $table->timestamps();
         });
     }

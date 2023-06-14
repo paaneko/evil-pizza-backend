@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -12,21 +13,21 @@ class OrderProduct extends Model
 {
     use HasFactory;
 
-    protected $fillable = 'quantity';
+    protected $fillable = ['quantity', 'total_price', 'product_id', 'size_spec_id', 'dough_spec_id', ''];
 
-    public function product(): HasOne
+    public function product(): BelongsTo
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
-    public function size_spec(): HasOne
+    public function size_spec(): BelongsTo
     {
-        return $this->hasOne(SizeSpec::class);
+        return $this->belongsTo(SizeSpec::class);
     }
 
-    public function dough_spec(): HasOne
+    public function dough_spec(): BelongsTo
     {
-        return $this->hasOne(DoughSpec::class);
+        return $this->belongsTo(DoughSpec::class);
     }
 
     public function excluded_ingredients(): BelongsToMany
@@ -36,7 +37,6 @@ class OrderProduct extends Model
 
     public function toppings(): BelongsToMany
     {
-        return $this->belongsToMany(Ingredient::class, 'order_product_toppings', 'order_product_id', 'topping_id')
-            ->withPivot('quantity');
+        return $this->belongsToMany(Topping::class, 'order_product_toppings', 'order_product_id', 'topping_id');
     }
 }

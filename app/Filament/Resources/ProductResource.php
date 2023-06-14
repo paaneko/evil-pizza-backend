@@ -26,27 +26,34 @@ class ProductResource extends Resource
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
                     ->required(),
+
                 Forms\Components\Select::make('sub_category_id')
                     ->relationship('sub_category', 'name')
                     ->required(),
+
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('purchases_count')
                     ->required()
                     ->numeric()
                     ->default(0),
+
                 Forms\Components\TextInput::make('old_price')
                     ->required()
                     ->numeric()
                     ->maxValue(10000),
+
                 Forms\Components\TextInput::make('new_price')
                     ->numeric()
                     ->maxValue(10000),
+
                 Forms\Components\TextInput::make('weight')
                     ->required()
                     ->numeric()
                     ->maxValue(10000),
+
                 Forms\Components\Section::make('Image')
                     ->schema([
                         Forms\Components\FileUpload::make('thumbnail')
@@ -55,20 +62,31 @@ class ProductResource extends Resource
                             ->disableLabel(),
                     ])
                     ->collapsible(),
+
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(128),
+
                 Forms\Components\Toggle::make('is_visible')
                     ->required(),
+
                 Forms\Components\Select::make('ingredients')
                     ->relationship('ingredients', 'name')
                     ->multiple()
                     ->preload()
                     ->required(),
+
+                Forms\Components\Select::make('toppings')
+                    ->relationship('toppings', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->required(),
+
                 Forms\Components\Section::make('Size Specifications ')
-                    ->schema(static::getFormSize('size_specs')),
+                    ->schema(static::getFormSize()),
+
                 Forms\Components\Section::make('Dough Specifications (Only for Pizza)')
-                    ->schema(static::getFormDough('dough_specs')),
+                    ->schema(static::getFormDough()),
             ]);
     }
 
@@ -127,7 +145,7 @@ class ProductResource extends Resource
                 ->schema([
                     Forms\Components\TextInput::make('name')
                         ->columnSpan([
-                            'md' => 6,
+                            'md' => 2,
                         ])
                         ->required(),
 
@@ -141,6 +159,22 @@ class ProductResource extends Resource
                         ]),
                     Forms\Components\TextInput::make('extra_weight')
                         ->label('Extra Weight')
+                        ->numeric()
+                        ->required()
+                        ->maxValue(10000)
+                        ->columnSpan([
+                            'md' => 2,
+                        ]),
+                    Forms\Components\TextInput::make('extra_toppings_price')
+                        ->label('Extra Toppings Price')
+                        ->numeric()
+                        ->required()
+                        ->maxValue(10000)
+                        ->columnSpan([
+                            'md' => 2,
+                        ]),
+                    Forms\Components\TextInput::make('extra_toppings_weight_rate')
+                        ->label('Extra Toppings Weight Rate %')
                         ->numeric()
                         ->required()
                         ->maxValue(10000)

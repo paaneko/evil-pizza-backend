@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('number', 32)->unique();
             $table->enum('status', ['new', 'processing', 'shipped', 'delivered', 'cancelled'])->default('new');
             $table->enum('payment_type', ['сash', 'google pay', 'credit card online', 'credit card in store'])->nullable();
+            $table->unsignedInteger('total_price');
             $table->text('notes')->nullable();
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 128);
             $table->unsignedInteger('extra_price');
-            $table->unsignedInteger('extra_weigh');
+            $table->unsignedInteger('extra_weight');
             $table->string('thumbnail', 255);
             $table->timestamps();
         });

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('excluded_ingredients', function (Blueprint $table) {
-            $table->primary(['ingredient_id', 'order_product_id']);
-            $table->foreignId('ingredient_id')->nullable()->references('id')->on('ingredients');
-            $table->foreignId('order_product_id')->nullable()->references('id')->on('order_products');
+        Schema::create('product_topping_recipes', function (Blueprint $table) {
+            $table->primary(['product_id','topping_id']);
+            $table->foreignId('product_id')->nullable();
+            $table->foreignId('topping_id')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('excluded_ingredients');
+        Schema::dropIfExists('product_topping_recipes');
     }
 };

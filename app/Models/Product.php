@@ -49,4 +49,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Ingredient::class, 'recipes', 'product_id', 'ingredient_id');
     }
+
+    public function toppings(): BelongsToMany
+    {
+        return $this->belongsToMany(Topping::class, 'product_topping_recipes', 'product_id', 'topping_id');
+    }
 }
