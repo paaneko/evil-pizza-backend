@@ -79,8 +79,7 @@ class ProductResource extends Resource
                 Forms\Components\Select::make('toppings')
                     ->relationship('toppings', 'name')
                     ->multiple()
-                    ->preload()
-                    ->required(),
+                    ->preload(),
 
                 Forms\Components\Section::make('Size Specifications ')
                     ->schema(static::getFormSize()),
@@ -152,6 +151,7 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('extra_price')
                         ->label('Extra Price')
                         ->numeric()
+                        ->default(0)
                         ->required()
                         ->maxValue(10000)
                         ->columnSpan([
@@ -160,6 +160,7 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('extra_weight')
                         ->label('Extra Weight')
                         ->numeric()
+                        ->default(0)
                         ->required()
                         ->maxValue(10000)
                         ->columnSpan([
@@ -168,6 +169,7 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('extra_toppings_price')
                         ->label('Extra Toppings Price')
                         ->numeric()
+                        ->default(0)
                         ->required()
                         ->maxValue(10000)
                         ->columnSpan([
@@ -176,6 +178,7 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('extra_toppings_weight_rate')
                         ->label('Extra Toppings Weight Rate %')
                         ->numeric()
+                        ->default(0)
                         ->required()
                         ->maxValue(10000)
                         ->columnSpan([
@@ -207,6 +210,7 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('extra_price')
                         ->label('Extra Price')
                         ->numeric()
+                        ->default(0)
                         ->required()
                         ->maxValue(10000)
                         ->columnSpan([
@@ -215,6 +219,7 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('extra_weight')
                         ->label('Extra Weight')
                         ->numeric()
+                        ->default(0)
                         ->required()
                         ->maxValue(10000)
                         ->columnSpan([

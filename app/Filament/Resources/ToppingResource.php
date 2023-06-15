@@ -30,9 +30,14 @@ class ToppingResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('extra_weight')
                     ->required(),
-                Forms\Components\TextInput::make('thumbnail')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Section::make('Topping Image')
+                    ->schema([
+                        Forms\Components\FileUpload::make('thumbnail')
+                            ->label('Image')
+                            ->image()
+                            ->disableLabel(),
+                    ])
+                    ->collapsible(),
             ]);
     }
 
