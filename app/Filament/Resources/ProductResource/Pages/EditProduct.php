@@ -16,4 +16,11 @@ class EditProduct extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['validate_hash'] = bin2hex(random_bytes(12));
+
+        return $data;
+    }
 }

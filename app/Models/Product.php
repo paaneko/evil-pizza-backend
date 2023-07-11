@@ -23,6 +23,7 @@ class Product extends Model
         'purchases_count',
         'thumbnail',
         'is_visible',
+        'validate_hash',
     ];
 
     public function category(): BelongsTo
