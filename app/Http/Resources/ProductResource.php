@@ -12,6 +12,8 @@ use App\Http\Resources\SizeSpecResource;
 use App\Http\Resources\IngredientResource;
 use App\Http\Resources\ToppingResource;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ProductResource extends JsonResource
 {
     /**
@@ -32,13 +34,14 @@ class ProductResource extends JsonResource
             'weight' => $this->weight,
             'thumbnail' => $this->thumbnail,
             'slug' => $this->slug,
+            'selectedSizeId' => $this->size_specs[0]->id,
+            'selectedDoughId' => ($this->dough_specs->count() == 0) ? null : $this->dough_specs[0]->id,
             'category' => new CategoryResource($this->category),
-            'subCategory' => new SubCategoryResource($this->category),
+            'subCategory' => new SubCategoryResource($this->sub_category),
             'doughSpecs' => DoughSpecResource::collection($this->dough_specs),
             'sizeSpecs' => SizeSpecResource::collection($this->size_specs),
             'ingredients' => IngredientResource::collection($this->ingredients),
             'toppings' => ToppingResource::collection($this->toppings)
-
         ];
     }
 }

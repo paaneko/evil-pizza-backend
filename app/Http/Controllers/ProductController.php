@@ -12,7 +12,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return ProductResource::collection(
+            Product::with('category', 'sub_category', 'dough_specs', 'size_specs', 'ingredients', 'toppings')
+                ->get()
+        );
     }
 
     /**
@@ -29,19 +32,6 @@ class ProductController extends Controller
     public function show(Product $category)
     {
         //
-    }
-
-    /**
-     * Display the specified resource by category.
-     */
-    public function byCategory(string $category)
-    {
-        return ProductResource::collection(
-            Product::with('category', 'sub_category', 'dough_specs', 'size_specs', 'ingredients', 'toppings')
-                ->whereHas('category', function ($query) use ($category) {
-                    $query->where('slug', $category);
-                })->get()
-        );
     }
 
     /**
