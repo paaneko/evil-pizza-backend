@@ -23,11 +23,6 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('validate_hash')
-                    ->default(bin2hex(random_bytes(12)))
-                    ->required()
-                    ->disabled(),
-
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
                     ->required(),
@@ -98,7 +93,6 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('validate_hash'),
                 Tables\Columns\TextColumn::make('category.name'),
                 Tables\Columns\TextColumn::make('sub_category.name'),
                 Tables\Columns\TextColumn::make('name'),
