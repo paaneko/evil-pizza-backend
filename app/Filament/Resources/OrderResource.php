@@ -110,82 +110,88 @@ class OrderResource extends Resource
     {
         if ($section === 'products') {
             return [
-                Forms\Components\Repeater::make('order_products')
-                    ->relationship()
-                    ->schema([
-                        Forms\Components\Select::make('product_id')
-                            ->label('Product')
-                            ->options(Product::query()->pluck('name', 'id'))
-                            ->required()
-                            ->reactive()
-                            ->columnSpan([
-                                'md' => 5,
-                            ]),
+                Forms\Components\Fieldset::make('Products')
+                ->relationship('order_cart')
+                ->schema([
+                    Forms\Components\TextInput::make('total_price')
+                        ->numeric()
+                        ->required()
+                        ->disabled(),
 
-                        Forms\Components\Select::make('size_spec_id')
-                            ->label('Size')
-                            ->options(SizeSpec::query()
-                                ->pluck('name', 'id'))
-                            ->required()
-                            ->reactive()
-                            ->columnSpan([
-                                'md' => 5,
-                            ]),
+                    Forms\Components\Repeater::make('cart_products')
+                        ->relationship('cart_products')
+                        ->schema([
+                            Forms\Components\Select::make('product_id')
+                                ->label('Product')
+                                ->options(Product::query()->pluck('name', 'id'))
+                                ->required()
+                                ->reactive()
+                                ->columnSpan([
+                                    'md' => 5,
+                                ]),
 
-                        Forms\Components\Select::make('dough_spec_id')
-                            ->label('Dough only for pizza ')
-                            ->options(DoughSpec::query()->pluck('name', 'id'))
-                            ->reactive()
-                            ->columnSpan([
-                                'md' => 2,
-                            ]),
+                            Forms\Components\Select::make('size_spec_id')
+                                ->label('Size')
+                                ->options(SizeSpec::query()
+                                    ->pluck('name', 'id'))
+                                ->required()
+                                ->reactive()
+                                ->columnSpan([
+                                    'md' => 5,
+                                ]),
 
-                        Forms\Components\Select::make('excluded_ingredients')
-                            ->relationship('excluded_ingredients', 'name')
-                            ->multiple()
-                            ->preload()
-                            ->columnSpan([
-                                'md' => 2,
-                            ]),
+                            Forms\Components\Select::make('dough_spec_id')
+                                ->label('Dough only for pizza ')
+                                ->options(DoughSpec::query()->pluck('name', 'id'))
+                                ->reactive()
+                                ->columnSpan([
+                                    'md' => 2,
+                                ]),
 
-                        Forms\Components\Select::make('toppings')
-                            ->relationship('toppings', 'name')
-                            ->multiple()
-                            ->preload()
-                            ->columnSpan([
-                                'md' => 2,
-                            ]),
+                            Forms\Components\Select::make('excluded_ingredients')
+                                ->relationship('excluded_ingredients', 'name')
+                                ->multiple()
+                                ->preload()
+                                ->columnSpan([
+                                    'md' => 2,
+                                ]),
 
-                        Forms\Components\TextInput::make('quantity')
-                            ->numeric()
-                            ->default(1)
-                            ->columnSpan([
-                                'md' => 2,
-                            ])
-                            ->required(),
+                            Forms\Components\Select::make('toppings')
+                                ->relationship('toppings', 'name')
+                                ->multiple()
+                                ->preload()
+                                ->columnSpan([
+                                    'md' => 2,
+                                ]),
 
-                        Forms\Components\TextInput::make('total_price')
-                            ->numeric()
-                            ->columnSpan([
-                                'md' => 2,
-                            ])
-                            ->required(),
-                    ])
-                    ->disableLabel()
-                    ->columns([
-                        'md' => 20,
-                    ])
-                    ->required(),
+                            Forms\Components\TextInput::make('quantity')
+                                ->numeric()
+                                ->default(1)
+                                ->columnSpan([
+                                    'md' => 2,
+                                ])
+                                ->required(),
+
+                            Forms\Components\TextInput::make('total_price')
+                                ->numeric()
+                                ->columnSpan([
+                                    'md' => 2,
+                                ])
+                                ->required(),
+                        ])
+                        ->disableLabel()
+                        ->columns([
+                            'md' => 20,
+                        ])
+                        ->required(),
+                ])
+                    ->columns(1),
             ];
         }
 
         return [
             Forms\Components\TextInput::make('number')
                 ->default('OR-' . random_int(10000000, 99999999))
-                ->required(),
-
-            Forms\Components\TextInput::make('total_price')
-                ->numeric()
                 ->required(),
 
             Forms\Components\Select::make('status')

@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_products', function (Blueprint $table) {
+        Schema::create('cart_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->references('id')->on('orders');
+            $table->foreignId('user_cart_id')->references('id')->on('user_carts');
             $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('dough_spec_id')->nullable()->references('id')->on('dough_specs');
-            $table->foreignId('size_spec_id')->references('id')->on('dough_specs');
+            $table->foreignId('size_spec_id')->nullable()->references('id')->on('dough_specs');
             $table->unsignedSmallInteger('quantity');
+            $table->unsignedSmallInteger('total_weight');
             $table->unsignedSmallInteger('total_price');
+            $table->unsignedSmallInteger('discount_total_price');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_products');
+        Schema::dropIfExists('cart_products');
     }
 };

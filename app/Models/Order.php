@@ -21,9 +21,9 @@ class Order extends Model
         'notes',
     ];
 
-    public function order_products(): HasMany
+    public function order_cart(): HasOne
     {
-        return $this->hasMany(OrderProduct::class);
+        return $this->hasOne(UserCart::class);
     }
 
     public function address(): HasOne

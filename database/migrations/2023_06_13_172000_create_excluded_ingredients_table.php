@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('excluded_ingredients', function (Blueprint $table) {
-            $table->primary(['ingredient_id', 'order_product_id']);
+            $table->primary(['ingredient_id', 'cart_product_id']);
             $table->foreignId('ingredient_id')->nullable()->references('id')->on('ingredients');
-            $table->foreignId('order_product_id')->nullable()->references('id')->on('order_products');
+            $table->foreignId('cart_product_id')->nullable()->references('id')->on('cart_products');
             $table->timestamps();
         });
     }
