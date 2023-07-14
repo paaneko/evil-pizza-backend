@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_cart_id')->references('id')->on('user_carts');
             $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('dough_spec_id')->nullable()->references('id')->on('dough_specs');
-            $table->foreignId('size_spec_id')->nullable()->references('id')->on('dough_specs');
+            $table->foreignId('size_spec_id')->references('id')->on('size_specs');
             $table->unsignedSmallInteger('quantity');
             $table->unsignedSmallInteger('total_weight');
             $table->unsignedSmallInteger('total_price');

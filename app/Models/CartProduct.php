@@ -13,7 +13,14 @@ class CartProduct extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['quantity', 'total_price', 'product_id', 'size_spec_id', 'dough_spec_id'];
+    protected $fillable = [
+        'hash',
+        'user_cart_id',
+        'quantity',
+        'product_id',
+        'size_spec_id',
+        'dough_spec_id',
+    ];
 
     public function product(): BelongsTo
     {
@@ -37,6 +44,6 @@ class CartProduct extends Model
 
     public function toppings(): BelongsToMany
     {
-        return $this->belongsToMany(Topping::class, 'order_product_toppings', 'cart_product_id', 'topping_id');
+        return $this->belongsToMany(Topping::class, 'cart_product_toppings', 'cart_product_id', 'topping_id');
     }
 }
