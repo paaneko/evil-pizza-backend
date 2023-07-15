@@ -71,27 +71,37 @@ class UserCartController extends Controller
      */
     public function show(UserCart $userCart, mixed $cartId)
     {
-        $cartTotalPrice = 0;
+        if ($cartId === 'null') {
+            $userCart = UserCart::create();
+            $userCartId = $userCart->id;
+            return response([
+                'cartItems' => [],
+                'cartTotalPrice' => 0,
+                'userCartId' => $userCartId,
+                'version' => 'valid',
+            ], 200);
+        } else {
+            $cartTotalPrice = 0;
 
-        $userCart = UserCart::findOrFail($cartId);
-        $cartProducts = $userCart->cart_products()->with('product', 'toppings', 'excluded_ingredients')->get();
+            $userCart = UserCart::findOrFail($cartId);
+            $cartProducts = $userCart->cart_products()->with('product', 'toppings', 'excluded_ingredients')->get();
 
-//        return response($cartProducts);
-        $cartItems = CartProductResource::collection($cartProducts);
+            $cartItems = CartProductResource::collection($cartProducts);
 
 
-        // TODO fix that workaround
+            // TODO fix that workaround
 
-        foreach (json_decode(json_encode($cartItems, true)) as $key => $cartItem) {
-            $cartTotalPrice += $cartItem->product->totalPrice * $cartItem->quantity;
+            foreach (json_decode(json_encode($cartItems, true)) as $key => $cartItem) {
+                $cartTotalPrice += $cartItem->product->totalPrice * $cartItem->quantity;
+            }
+
+            return response([
+                'cartItems' => CartProductResource::collection($cartProducts),
+                'cartTotalPrice' => $cartTotalPrice,
+                'userCartId' => 1,
+                'version' => 'valid',
+            ], 200);
         }
-
-        return response([
-            'cartItems' => CartProductResource::collection($cartProducts),
-            'cartTotalPrice' => $cartTotalPrice,
-            'userCartId' => 1,
-            'version' => 'valid',
-        ], 200);
     }
 
     /**

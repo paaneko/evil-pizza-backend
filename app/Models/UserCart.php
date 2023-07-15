@@ -10,6 +10,8 @@ class UserCart extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function cart_products(): HasMany
     {
         return $this->hasMany(CartProduct::class);
