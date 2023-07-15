@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('user_carts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->nullable()->references('id')->on('orders');
-            $table->integer('total_cart_price');
         });
     }
 

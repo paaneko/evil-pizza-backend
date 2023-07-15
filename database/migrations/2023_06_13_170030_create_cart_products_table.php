@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('cart_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_cart_id')->references('id')->on('user_carts');
+            $table->foreignId('user_cart_id')->references('id')->on('user_carts')->cascadeOnDelete();
             $table->foreignId('product_id')->references('id')->on('products');
-            $table->foreignId('dough_spec_id')->nullable()->references('id')->on('dough_specs');
-            $table->foreignId('size_spec_id')->references('id')->on('size_specs');
+            $table->foreignId('dough_spec_id')->nullable()->references('id')->on('dough_specs')->cascadeOnDelete();
+            $table->foreignId('size_spec_id')->references('id')->on('size_specs')->cascadeOnDelete();
             $table->unsignedSmallInteger('quantity');
             $table->unsignedSmallInteger('total_weight');
             $table->unsignedSmallInteger('total_price');

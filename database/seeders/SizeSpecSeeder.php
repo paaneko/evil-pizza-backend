@@ -76,12 +76,12 @@ class SizeSpecSeeder extends Seeder
     private function getSizePrice(int $index, int $price): int {
         // in percent 👇
         $config = [0, 20, 40, 55];
-        return round($price + ($price / 100) * $config[$index]);
+        return round(($price / 100) * $config[$index]);
     }
 
     private function getSizeWeight(int $index, int $weight): int {
         // in percent 👇
         $config = [0, 15, 35, 50];
-        return round($weight + ($weight / 100) * $config[$index]);
+        return round(($weight / 100) * $config[$index]);
     }
 }

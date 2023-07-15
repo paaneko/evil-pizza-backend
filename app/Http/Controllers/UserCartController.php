@@ -130,7 +130,7 @@ class UserCartController extends Controller
             'quantity' => $quantity,
             'product_id' => $productData['productId'],
             'size_spec_id' => $productData['selectedSizeId'],
-            'dough_spec_id' => (empty($productData['selectedDoughId'])) ?
+            'dough_spec_id' => (!empty($productData['selectedDoughId'])) ?
                 $productData['selectedDoughId'] : null,
         ]);
 
@@ -154,7 +154,7 @@ class UserCartController extends Controller
             'hash'=> $hash,
             'quantity' => $quantity,
             'size_spec_id' => $productData['selectedSizeId'],
-            'dough_spec_id' => (empty($productData['selectedDoughId'])) ?
+            'dough_spec_id' => (!empty($productData['selectedDoughId'])) ?
                 $productData['selectedDoughId'] : null,
         ]);
 

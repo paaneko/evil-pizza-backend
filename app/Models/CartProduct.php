@@ -60,10 +60,13 @@ class CartProduct extends Model
         $doughPrice = $data->dough_spec->extra_price ?? 0;
 
         $extraToppingsPrice = $data->size_spec->extra_toppings_price;
-        $toppingPrice = $this->toppings->sum('extra_price');
+
+        $totalToppingPrice = $this->toppings->reduce(function ($carry, $topping) use ($extraToppingsPrice) {
+            return $carry + $topping->extra_price + $extraToppingsPrice;
+        }, 0);
 
         return $productPrice +
-            ($toppingPrice + $extraToppingsPrice) +
+            $totalToppingPrice +
             $sizePrice +
             $doughPrice;
     }
