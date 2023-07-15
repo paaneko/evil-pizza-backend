@@ -32,7 +32,7 @@ return new class extends Migration
         });
 
         Schema::table('dough_specs', function (Blueprint $table) {
-            $table->foreignId('product_id')->constrained('products')->nullOnDelete();
+            $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();
         });
     }
 };
