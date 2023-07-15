@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserCartRequest;
 use App\Http\Requests\UpdateUserCartRequest;
+use App\Http\Resources\CartProductResource;
+use App\Http\Resources\UserCartResource;
 use App\Models\CartProduct;
 use App\Models\UserCart;
 use Illuminate\Support\Facades\DB;
@@ -62,16 +64,34 @@ class UserCartController extends Controller
                 $cartProductItem->delete();
             }
         }
-
-        return response('Cart Synced Successfully', 200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(UserCart $userCart)
+    public function show(UserCart $userCart, mixed $cartId)
     {
-        //
+        $cartTotalPrice = 0;
+
+        $userCart = UserCart::findOrFail($cartId);
+        $cartProducts = $userCart->cart_products()->with('product', 'toppings', 'excluded_ingredients')->get();
+
+//        return response($cartProducts);
+        $cartItems = CartProductResource::collection($cartProducts);
+
+
+        // TODO fix that workaround
+
+        foreach (json_decode(json_encode($cartItems, true)) as $key => $cartItem) {
+            $cartTotalPrice += $cartItem->product->totalPrice * $cartItem->quantity;
+        }
+
+        return response([
+            'cartItems' => CartProductResource::collection($cartProducts),
+            'cartTotalPrice' => $cartTotalPrice,
+            'userCartId' => 1,
+            'version' => 'valid',
+        ], 200);
     }
 
     /**

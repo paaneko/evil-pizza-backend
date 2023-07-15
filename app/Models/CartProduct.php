@@ -46,4 +46,42 @@ class CartProduct extends Model
     {
         return $this->belongsToMany(Topping::class, 'cart_product_toppings', 'cart_product_id', 'topping_id');
     }
+
+    public function getCartProductPrice($data, bool $isDiscount) {
+        // TODO Getting data from func is not good
+        $productPrice = (!$isDiscount) ?
+            $data->product->old_price :
+            $data->product->new_price;
+
+        // TODO enhance performance
+        if (!$productPrice) return null;
+
+        $sizePrice = $data->size_spec->extra_price;
+        $doughPrice = $data->dough_spec->extra_price ?? 0;
+
+        $extraToppingsPrice = $data->size_spec->extra_toppings_price;
+        $toppingPrice = $this->toppings->sum('extra_price');
+
+        return $productPrice +
+            ($toppingPrice + $extraToppingsPrice) +
+            $sizePrice +
+            $doughPrice;
+    }
+
+    public function getCartProductWeight($data) {
+        $productWeight = $data->product->weight;
+
+        // TODO enhance performance
+
+        $sizeWeight = $data->size_spec->extra_weight;
+        $doughWeight = $data->dough_spec->extra_weight ?? 0;
+
+        $extraToppingsWeightRate = $data->size_spec->extra_toppings_weight_rate;
+        $toppingWeight = $this->toppings->sum('extra_weight');
+
+        return $productWeight +
+            ($toppingWeight * $extraToppingsWeightRate + $toppingWeight) +
+            $sizeWeight +
+            $doughWeight;
+    }
 }
