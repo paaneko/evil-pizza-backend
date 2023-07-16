@@ -92,7 +92,7 @@ class UserCartController extends Controller
             // TODO fix that workaround
 
             foreach (json_decode(json_encode($cartItems, true)) as $key => $cartItem) {
-                $cartTotalPrice += $cartItem->product->totalPrice * $cartItem->quantity;
+                $cartTotalPrice += ($cartItem->product->discountTotalPrice ?? $cartItem->product->totalPrice) * $cartItem->quantity;
             }
 
             return response([
