@@ -80,10 +80,13 @@ class CartProduct extends Model
         $doughWeight = $data->dough_spec->extra_weight ?? 0;
 
         $extraToppingsWeightRate = $data->size_spec->extra_toppings_weight_rate;
-        $toppingWeight = $this->toppings->sum('extra_weight');
+
+        $totalToppingWeight = $this->toppings->reduce(function ($carry, $topping) use ($extraToppingsWeightRate) {
+            return $carry + $topping->extra_weight + ($extraToppingsWeightRate / 100 * $topping->extra_weight);
+        }, 0);
 
         return $productWeight +
-            ($toppingWeight * $extraToppingsWeightRate + $toppingWeight) +
+            $totalToppingWeight +
             $sizeWeight +
             $doughWeight;
     }
