@@ -44,7 +44,7 @@ class CartProductResource extends JsonResource
                     }) : [],
                 'totalWeight' => $this->getCartProductWeight($this, false),
                 'totalPrice' => $this->getCartProductPrice($this, false),
-                'discountTotalPrice' => 0,
+                'discountTotalPrice' => $this->getCartProductPrice($this, true),
             ],
             'quantity' => $this->quantity,
         ];
