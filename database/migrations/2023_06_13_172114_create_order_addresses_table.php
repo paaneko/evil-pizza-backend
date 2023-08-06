@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('order_addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->references('id')->on('orders');
+            $table->foreignId('order_id')->constrained('orders');
             $table->string('street', 128);
             $table->string('house_number');
-            $table->string('entrance', 128);
-            $table->string('apartment', 128);
-            $table->unsignedSmallInteger('floor');
-            $table->string('code', 128);
+            $table->string('entrance', 128)->nullable();
+            $table->string('apartment', 128)->nullable();
+            $table->unsignedSmallInteger('floor')->nullable();
+            $table->string('code', 128)->nullable();
             $table->timestamps();
         });
     }

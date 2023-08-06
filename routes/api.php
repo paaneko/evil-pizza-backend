@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserCartController;
 use Illuminate\Http\Request;
@@ -23,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('products', [ProductController::class, 'index']);
 Route::get('cart/{id}', [UserCartController::class, 'show']);
 Route::patch('cart', [UserCartController::class, 'store']);
+Route::post('order',  [OrderController::class, 'store']);

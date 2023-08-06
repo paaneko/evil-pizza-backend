@@ -16,12 +16,14 @@ class Order extends Model
     protected $fillable = [
         'number',
         'status',
+        'name',
+        'email',
+        'phone_number',
         'payment_type',
         'total_price',
-        'notes',
     ];
 
-    public function order_cart(): HasOne
+    public function user_cart(): HasOne
     {
         return $this->hasOne(UserCart::class);
     }

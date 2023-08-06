@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('number', 32)->unique();
             $table->enum('status', ['new', 'processing', 'shipped', 'delivered', 'cancelled'])->default('new');
-            $table->enum('payment_type', ['сash', 'google pay', 'credit card online', 'credit card in store'])->nullable();
+            $table->enum('payment_type', ['cash', 'google_pay', 'online_card'])->nullable();
             $table->unsignedInteger('total_price');
-            $table->text('notes')->nullable();
+            $table->string('name', 128);
+            $table->string('phone_number', 32);
+            $table->string('email', 128)->nullable();
             $table->timestamps();
         });
     }
