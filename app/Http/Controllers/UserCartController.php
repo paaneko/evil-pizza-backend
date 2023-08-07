@@ -98,7 +98,7 @@ class UserCartController extends Controller
             return response([
                 'cartItems' => CartProductResource::collection($cartProducts),
                 'cartTotalPrice' => $cartTotalPrice,
-                'userCartId' => 1,
+                'userCartId' => $cartId,
                 'version' => 'valid',
             ], 200);
         }
