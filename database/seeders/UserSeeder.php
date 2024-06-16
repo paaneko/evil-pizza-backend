@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\UserFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,10 +14,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            'name' => 'paaneko',
-            'email' => 'paaneko@gmail.com',
-            'password' => 'paanekouser',
+        UserFactory::new()->create([
+            'email' => 'demo@gmail.com',
+            'password' => 'root',
         ]);
     }
 }
