@@ -111,7 +111,7 @@ class OrderResource extends Resource
         if ($section === 'products') {
             return [
                 Forms\Components\Fieldset::make('Products')
-                ->relationship('order_cart')
+                ->relationship('user_cart')
                 ->schema([
                     Forms\Components\TextInput::make('total_price')
                         ->numeric()
